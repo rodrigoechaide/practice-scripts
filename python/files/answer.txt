@@ -1,0 +1,13 @@
+GB
+Cordoba
+cba
+Ascentio Technologies SA
+IT
+prueba2
+Rodrigo Echaide
+prueba@ascentio.com.ar
+.
+.
+y
+y
+EOF
