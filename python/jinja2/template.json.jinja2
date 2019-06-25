@@ -1,0 +1,2 @@
+{ "insecure-registries" : [ {% for key in data %}{% if loop.index != 5 %}"{{ data[key] }}", {% else %}"{{ data[key] }}"{% endif %}{% endfor %} ] }
+
