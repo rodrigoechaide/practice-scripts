@@ -7,7 +7,7 @@ from jinja2 import Template
 with open('template.json.jinja2') as f:
 	template = Template(f.read())
 
-data = {'registry_01': 'nexus.ascentio.com.ar:7443', 'registry_02': 'registry-dev.ascentio.com.ar', 'registry_03': 'registry-cms.ascentio.com.ar', 'registry_04': '192.168.233.229:5000', 'registry_05': '192.168.32.229:5000'}
+data = {'registry_01': 'nexus.ascentio.com.ar:7443', 'registry_02': 'registry-dev.ascentio.com.ar', 'registry_03': 'registry-cms.ascentio.com.ar', 'registry_04': '192.168.233.229:5000', 'registry_05': '192.168.32.229:5000', 'registry_06': 'nexus.ascentio.com.ar:7443', 'registry_07': 'registry-dev.ascentio.com.ar', 'registry_08': 'registry-cms.ascentio.com.ar'}
 
 output = template.render(data=data)
 

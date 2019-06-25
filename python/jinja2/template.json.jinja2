@@ -1,2 +1,2 @@
-{ "insecure-registries" : [ {% for key in data %}{% if loop.index != 5 %}"{{ data[key] }}", {% else %}"{{ data[key] }}"{% endif %}{% endfor %} ] }
+{ "insecure-registries" : [ {% for key in data %}{% if not loop.last %}"{{ data[key] }}", {% else %}"{{ data[key] }}"{% endif %}{% endfor %} ] }
 
