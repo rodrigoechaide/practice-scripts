@@ -1,3 +1,4 @@
+# https://mariadb.com/products/skysql/docs/clients/mariadb-connectors/connector-python/
 import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
 
