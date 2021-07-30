@@ -11,7 +11,7 @@ print >>output, 'Second line.'
 # 'First line.\nSecond line.\n'
 contents = output.getvalue()
 
-print contents
+print(contents)
 
 # Close object and discard memory buffer --
 # .getvalue() will now raise an exception.

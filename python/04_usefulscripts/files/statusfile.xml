@@ -1,8 +1,0 @@
-<executionStatus updateTime="1234" xmlnsxsi="http://www.w3.org/2001/XMLSchema-instance">
-  <executionStartTime>0</executionStartTime>
-  <lastUpdateStatusFile>12-24-2015T14:16:21</lastUpdateStatusFile>
-  <unitID>CHandler</unitID>
-  <apid>6388</apid>
-  <Configfile>/home/rodrigo/config.xml</Configfile>
-  <numbermaskips>4</numbermaskips>
-</executionStatus>
