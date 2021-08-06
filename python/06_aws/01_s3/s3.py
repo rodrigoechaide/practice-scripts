@@ -5,14 +5,6 @@ from botocore.exceptions import ClientError
 import logging
 import os
 
-def authenticate(aws_access_key_id, aws_secret_access_key, region_name):
-    session = boto3.Session(
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-        region_name=region_name
-    )
-    return session
-
 def list_buckets(session):
     # Let's use Amazon S3 resource method
     s3 = session.resource('s3')
@@ -89,23 +81,45 @@ def delete_folder(session, bucket, prefix):
     bucket = s3.Bucket(bucket)
     bucket.objects.filter(Prefix=prefix).delete()
 
-def list_files():
-    pass
+def list_files(session, bucket, prefix):
+    s3 = session.client("s3")
+    """List files in specific S3 URL"""
+    response = s3.list_objects(Bucket=bucket, Prefix=prefix)
+    for content in response.get('Contents', []):
+        yield content.get('Key')
 
 
 ### Main Program ###
+AWS_REGION = os.environ.get('AWS_REGION',"us-east-1")
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_REGION = os.environ.get('AWS_REGION')
+try:
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    session = boto3.Session(
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        region_name=AWS_REGION
+    )
+except:
+    session = boto3.Session(region_name=AWS_REGION)
 
-session = authenticate(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION)
 
+# Upload an Object
 # response = upload_file(session, "dummy.txt", "qa-tradersync", "dummy/dummy.txt")
 # response = upload_fileobj(session, "dummy2.txt", "qa-tradersync", "dummy/dummy2.txt")
 # response = upload_fileobj(session, "picture.png", "qa-tradersync", "picture.png", {"ACL": "public-read", "ContentType": "image/png"})
+
+# Delete an Object
 # response = delete_object("client", session, "dummy.txt", "qa-tradersync")
 # response = delete_object("resource", session, "picture.png", "qa-tradersync")
-# response = download_object("client", session, "qa-tradersync", "user_backups", "backup_adminuser_2021-08-02_17_31_23_1.csv")
-# response = delete_folder(session, "qa-tradersync", "dummy")
 
+# Download an Object
+# response = download_object("client", session, "qa-tradersync", "user_backups", "backup_adminuser_2021-08-02_17_31_23_1.csv")
+
+# Delete a Folder
+response = delete_folder(session, "qa-tradersync", "dummy")
+
+# List files
+file_list = list_files(session, "qa-tradersync", "dummy")
+for file in file_list:
+    print(f'File found: {file}')
