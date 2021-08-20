@@ -22,3 +22,19 @@ print(obj.classmethod())
 
 print("Accessing the static method called staticmethod")
 print(obj.staticmethod())
+
+class Test:
+    @staticmethod
+    def method1():
+        print("You are running Method 1")
+
+    @staticmethod
+    def method2():
+        print("You are running Method 2")
+
+    @staticmethod
+    def method3():
+        print("You are running Method 3, but also calling Method 2")
+        Test.method2()
+
+Test.method3()
